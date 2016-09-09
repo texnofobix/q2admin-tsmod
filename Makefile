@@ -5,20 +5,25 @@
 
 CC      = gcc
 # CC      = /usr/i486-linuxlibc1/bin/gcc
-CFLAGS  = -m32 -O2 -fPIC -ffast-math -w -DGAME_INCLUDE -DLINUX -DSTDC_HEADERS -I/usr/include
-LDFLAGS = -m32 -ldl -lm -shared
+#CFLAGS  = -m32 -O2 -fPIC -ffast-math -w -DGAME_INCLUDE -DLINUX -DSTDC_HEADERS -I/usr/include
+#LDFLAGS = -m32 -ldl -lm -shared
+CFLAGS  = -O2 -fPIC -ffast-math -w -DGAME_INCLUDE -DLINUX -DSTDC_HEADERS -I/usr/include
+LDFLAGS = -ldl -lm -shared
 
 OUTFILES = g_main.o zb_spawn.o zb_vote.o zb_ban.o zb_cmd.o zb_flood.o zb_init.o zb_log.o zb_lrcon.o zb_msgqueue.o zb_util.o zb_zbot.o zb_zbotcheck.o regex.o zb_disable.o zb_checkvar.o md4.o
 
 q2admin.so: $(OUTFILES)
-	$(CC) $(OUTFILES) $(LDFLAGS) -o gamei386.so
+        #$(CC) $(OUTFILES) $(LDFLAGS) -o gamei386.so
+        $(CC) $(OUTFILES) $(LDFLAGS) -o gamex86_64.so
 
 zip: q2admin.so
-	strip gamei386.so
-	zip -9 q2admin-gamei386.zip gamei386.so
+        strip gamei386.so
+        zip -9 q2admin-gamei386.zip gamei386.so
 
+        strip gamex86_64.so
+        zip -9 q2admin-gamex86_64.zip gamex86_64.so
 clean:
-	rm -f $(OUTFILES) gamei386.so
+        rm -f $(OUTFILES) gamei386.so
 
 md4.o: md4.c
 g_main.o: g_main.c g_local.h q_shared.h game.h regex.h
